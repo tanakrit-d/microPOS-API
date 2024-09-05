@@ -1,0 +1,17 @@
+{
+    "cSpell.words": [
+        "dotenv",
+        "fastapi",
+        "jsonable",
+        "levelname",
+        "Postgrest",
+        "pydantic",
+        "pytest",
+        "supabase",
+        "Uvicorn",
+        "venv"
+    ],
+    "files.exclude": {
+        "**/__pycache__": true
+    }
+}

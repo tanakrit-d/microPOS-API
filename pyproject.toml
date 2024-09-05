@@ -1,0 +1,31 @@
+[project]
+name = "microPOS-infra"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Dominic", email = "127579510+Tanakrit-D@users.noreply.github.com" }
+]
+dependencies = [
+    "fastapi>=0.112.2",
+    "supabase>=2.7.4",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.8.2",
+    "uvicorn>=0.30.6",
+    "uuid-utils>=0.9.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.3.2",
+    "ruff>=0.6.2",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D100","D212","TCH001","TCH002","TCH003"]
+
+[tool.ruff]
+line-length = 140
