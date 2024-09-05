@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="assets/images/app-icon-web.png" width="100">
-  <p><strong>microPOS:</strong> Middleware API Layer</p>
+    <img src="assets/images/app-icon-web.png" width="100">
+    <p><strong>microPOS:</strong> Middleware API Layer</p>
 </div>
 
 ----
 <div align="center">
-    <img src="./assets/images/open_api.png">
+    <img src="assets/images/item_api_routes.svg" width="600">
 </div>
 
 ----
