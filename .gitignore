@@ -15,4 +15,8 @@ wheels/
 # logs
 logs/
 
+# ruff
+.ruff_cache
+
+# macOS
 .DS_Store
