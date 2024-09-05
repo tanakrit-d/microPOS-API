@@ -37,8 +37,8 @@ class ItemCreate(BaseModel):
     is_available: bool = False
 
 
-class ItemUpdate(Item):
-    title: str = Field(None, max_length=22, examples=["French Fries"])
+class ItemUpdate(BaseModel):
+    title: str | None = Field(None, max_length=22, examples=["French Fries"])
     title_full: str | None = Field(None, examples=["Hand-cut French Fries"])
     description: str | None = Field(
         None,
@@ -50,7 +50,7 @@ class ItemUpdate(Item):
     price: float = Field(0.0, examples=["15.00"])
     image_uri: str | None = Field(None, examples=["https://www.example.com/french_fries.png"])
     updated_at: datetime = None
-    is_available: bool = False
+    is_available: bool | None = False
 
 
 class ItemResponseModel(BaseModel):

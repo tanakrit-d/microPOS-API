@@ -5,7 +5,8 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from src.api.item.router import router
+from src.api.category.router import router as category_routes
+from src.api.item.router import router as item_routes
 from src.database import lifespan
 from utils.logging import logger
 
@@ -22,7 +23,8 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     logger.info("Adding routes ...")
-    app.include_router(router)
+    app.include_router(category_routes)
+    app.include_router(item_routes)
     return app
 
 

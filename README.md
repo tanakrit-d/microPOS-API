@@ -45,15 +45,17 @@ python run.py
     - [x] Create
     - [x] Update by ID
     - [x] Delete
-- [ ] Categories
-    - [ ] Get by ID
-    - [ ] Get All
-    - [ ] Create
-    - [ ] Update by ID
-    - [ ] Delete
+- [x] Categories
+    - [x] Get by ID
+    - [x] Get All
+    - [x] Create
+    - [x] Update by ID
+    - [x] Delete
+- [ ] Storage
 - [ ] Orders
 - [ ] Tables
 
 ## Endpoints (v2)
+- [ ] Accounts (New/Sign-in/Reset/Delete)
 - [ ] Filtering
 - [ ] Joins
