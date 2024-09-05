@@ -38,7 +38,7 @@ class ItemCreate(BaseModel):
 
 
 class ItemUpdate(Item):
-    title: str = Field(max_length=22, examples=["French Fries"])
+    title: str = Field(None, max_length=22, examples=["French Fries"])
     title_full: str | None = Field(None, examples=["Hand-cut French Fries"])
     description: str | None = Field(
         None,

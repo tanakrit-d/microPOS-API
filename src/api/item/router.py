@@ -130,3 +130,32 @@ async def update_item(
         ) from e
     else:
         return response
+
+
+@router.delete(
+    "/{item_id}",
+    summary="Delete Menu Item",
+    description="Delete a menu item by id.",
+    response_model=ItemResponseModel,
+    status_code=status.HTTP_200_OK,
+)
+async def delete_item(
+    item_id: UUID,
+    client: Annotated[AClient, Depends(get_supabase_client)],
+) -> PostgrestAPIResponse[ItemResponseModel]:
+    try:
+        response = await client.table("item").delete().eq("id", item_id).execute()
+        logger.info(
+            "Deleted item: title=%s; id=%s",
+            response.data[0]["title"],
+            response.data[0]["id"],
+        )
+    except Exception as e:
+        error_id = get_error_id()
+        logger.exception("Error ID: %s; Failed to delete item: %s", error_id, item_id)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error ID: {error_id}; Failed to delete item",
+        ) from e
+    else:
+        return response

@@ -10,6 +10,7 @@
 
 ----
 Provides an interface between the microPOS app and supabase.  
+Built with FastAPI, pydantic, supabase-py, and uvicorn.  
 
 # Setup
 Clone the repo and `cd` to the directory  
@@ -34,15 +35,25 @@ python run.py
 # Task Implementation Status
 ## Functionality
 - [x] async client
+- [ ] authentication
 - [ ] ... other things I haven't thought of
 
-## Endpoints
-- [ ] Menu Items
+## Endpoints (v1)
+- [x] Items
     - [x] Get by ID
     - [x] Get All
     - [x] Create
     - [x] Update by ID
-    - [ ] Delete
+    - [x] Delete
 - [ ] Categories
+    - [ ] Get by ID
+    - [ ] Get All
+    - [ ] Create
+    - [ ] Update by ID
+    - [ ] Delete
 - [ ] Orders
 - [ ] Tables
+
+## Endpoints (v2)
+- [ ] Filtering
+- [ ] Joins
