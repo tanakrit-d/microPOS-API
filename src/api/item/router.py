@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.encoders import jsonable_encoder
 from supabase import AClient, PostgrestAPIResponse
 
@@ -53,9 +53,13 @@ async def get_item(
 )
 async def get_items(
     client: Annotated[AClient, Depends(get_supabase_client)],
+    available: bool | None = Query(None, description="Filter by availability"),
 ) -> PostgrestAPIResponse[ItemResponseModel]:
     try:
-        response = await client.table("item").select("*", count="exact").execute()
+        if available is None:
+            response = await client.table("item").select("*", count="exact").execute()
+        else:
+            response = await client.table("item").select("*", count="exact").eq("is_available", f"{available}").execute()
     except Exception as e:
         error_id = get_error_id()
         logger.exception("Error ID: %s; Failed to retrieve items", error_id)
