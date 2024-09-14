@@ -83,27 +83,38 @@
           font-family: sans-serif;
           font-size: 16px;
         }
+        @media (prefers-color-scheme: dark) {
+          .route.adaptive {
+            flex-grow: 1;
+            padding: 10px;
+            color: #ffffff;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-family: sans-serif;
+            font-size: 16px;
+          }
+        }
       </style>
       <div class="container">
         <div class="api-route get">
           <div class="method get">GET</div>
-          <div class="route"><b>/item/{item_id}</b> Get Menu Item</div>
+          <div class="route adaptive"><b>/item/{item_id}</b> Get Menu Item</div>
         </div>
         <div class="api-route get">
           <div class="method get">GET</div>
-          <div class="route"><b>/item/</b> Get All Menu Items</div>
+          <div class="route adaptive"><b>/item/</b> Get All Menu Items</div>
         </div>
         <div class="api-route post">
           <div class="method post">POST</div>
-          <div class="route"><b>/item/create</b> Create Menu Item</div>
+          <div class="route adaptive"><b>/item/create</b> Create Menu Item</div>
         </div>
         <div class="api-route patch">
           <div class="method patch">PATCH</div>
-          <div class="route"><b>/item/{item_id}</b> Update Menu Item</div>
+          <div class="route adaptive"><b>/item/{item_id}</b> Update Menu Item</div>
         </div>
         <div class="api-route delete">
           <div class="method delete">DELETE</div>
-          <div class="route"><b>/item/{item_id}</b> Delete Menu Item</div>
+          <div class="route adaptive"><b>/item/{item_id}</b> Delete Menu Item</div>
         </div>
       </div>
     </div>
