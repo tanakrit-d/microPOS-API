@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.encoders import jsonable_encoder
 from supabase import AClient, PostgrestAPIResponse
 
@@ -15,8 +15,8 @@ from utils.exceptions import get_error_id
 from utils.logging import logger
 
 router = APIRouter(
-    prefix="/categories",
-    tags=["Categories"],
+    prefix="/category",
+    tags=["Category"],
 )
 
 
@@ -32,7 +32,7 @@ async def get_category(
     client: Annotated[AClient, Depends(get_supabase_client)],
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
-        response = await client.table("categories").select("*", count="exact").eq("id", cat_id).execute()
+        response = await client.table("category").select("*", count="exact").eq("id", cat_id).execute()
     except Exception as e:
         error_id = get_error_id()
         logger.exception("Error ID: %s; Failed to retrieve category: %s", error_id, cat_id)
@@ -53,9 +53,13 @@ async def get_category(
 )
 async def get_categories(
     client: Annotated[AClient, Depends(get_supabase_client)],
+    available: bool | None = Query(None, description="Filter by availability"),
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
-        response = await client.table("categories").select("*", count="exact").execute()
+        if available is None:
+            response = await client.table("category").select("*", count="exact").execute()
+        else:
+            response = await client.table("category").select("*", count="exact").eq("is_available", f"{available}").execute()
     except Exception as e:
         error_id = get_error_id()
         logger.exception("Error ID: %s; Failed to retrieve categories", error_id)
@@ -82,7 +86,7 @@ async def create_category(
         category_dict = category.model_dump()
         category_dict["created_at"] = datetime.now(timezone.utc)
         category_json_encoded = jsonable_encoder(category_dict)
-        response = await client.table("categories").insert(category_json_encoded).execute()
+        response = await client.table("category").insert(category_json_encoded).execute()
         logger.info(
             "Created category: title=%s; id=%s",
             response.data[0]["title"],
@@ -115,7 +119,7 @@ async def update_category(
         category_dict = category.model_dump(exclude_unset=True)
         category_dict["updated_at"] = datetime.now(timezone.utc)
         category_json_encoded = jsonable_encoder(category_dict)
-        response = await client.table("categories").update(category_json_encoded).eq("id", cat_id).execute()
+        response = await client.table("category").update(category_json_encoded).eq("id", cat_id).execute()
         logger.info(
             "Updated category: title=%s; id=%s",
             response.data[0]["title"],
@@ -144,7 +148,7 @@ async def delete_category(
     client: Annotated[AClient, Depends(get_supabase_client)],
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
-        response = await client.table("categories").delete().eq("id", cat_id).execute()
+        response = await client.table("category").delete().eq("id", cat_id).execute()
         logger.info(
             "Deleted category: title=%s; id=%s",
             response.data[0]["title"],
