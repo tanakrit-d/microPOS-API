@@ -4,9 +4,11 @@
         "fastapi",
         "jsonable",
         "levelname",
+        "micropos",
         "Postgrest",
         "pydantic",
         "pytest",
+        "slowapi",
         "supabase",
         "Uvicorn",
         "venv"

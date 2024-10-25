@@ -34,7 +34,15 @@ VERSION = 0.1.0
 # Start
 
 ```bash
-python run.py
+. .venv/bin/activate
+python entry.py
+```
+
+# Docker Approach
+
+```bash
+docker build -t micropos-api
+docker run --name micropos-api -d micropos-api
 ```
 
 # Task Implementation Status

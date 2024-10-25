@@ -1,0 +1,11 @@
+# Files
+.gitignore
+.gitattributes
+.markdownlint.json
+Dockerfile
+READEME.md
+
+# Directories
+.vscode
+assets
+logs
