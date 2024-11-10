@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import os
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING, AsyncGenerator
+from typing import TYPE_CHECKING
 
 from supabase import AClient, acreate_client
-
 from utils.exceptions import ClientInitializationError, get_error_id
-from utils.logging import logger
+from utils.logger import logger
 
 if TYPE_CHECKING:
     from fastapi import FastAPI

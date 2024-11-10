@@ -15,10 +15,10 @@ Built with FastAPI, pydantic, supabase-py, and uvicorn.
 # Setup
 
 Clone the repo and `cd` to the directory  
-Install the dependencies and enable the `.venv` with [rye](https://rye.astral.sh/guide/installation/)  
+Install the dependencies and enable the `.venv` with [uv](https://docs.astral.sh/uv/getting-started/installation/)  
 
 ```bash
-rye sync
+uv sync
 ```
 
 # Configuration
@@ -29,13 +29,14 @@ Create a `.env` file and specify the following:
 API_URL = SUPABASE_URL
 KEY = API_KEY
 VERSION = 0.1.0
+DEBUG = true
 ```
 
 # Start
 
 ```bash
 . .venv/bin/activate
-python entry.py
+python start_app.py
 ```
 
 # Docker Approach
@@ -50,6 +51,7 @@ docker run --name micropos-api -d micropos-api
 ## Functionality
 
 - [x] async client
+- [x] database seeding
 - [ ] authentication
 - [ ] ... other things I haven't thought of
 

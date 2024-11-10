@@ -1,0 +1,17 @@
+# project_root/
+# │
+# ├── src/
+# │   ├── __init__.py
+# │   ├── app.py  # FastAPI main application
+# │   ├── database.py
+# │   ├── core/
+# │   │   ├── __init__.py
+# │   │   ├── config.py
+# │   │   └── database.py
+# │   │
+# │   ├── api/
+# │   │   ├── __init__.py
+# │   │   └── item/
+# │   │       └── __init__.py
+# │   │       └── router.py
+# │   │       └── schemas.py

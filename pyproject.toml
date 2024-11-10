@@ -1,33 +1,38 @@
 [project]
-name = "microPOS-infra"
+name = "micropos-api"
 version = "0.1.0"
-description = ""
+description = "Add your description here"
 authors = [
     { name = "Dominic", email = "127579510+Tanakrit-D@users.noreply.github.com" }
 ]
-dependencies = [
-    "fastapi>=0.112.2",
-    "supabase>=2.7.4",
-    "python-dotenv>=1.0.1",
-    "pydantic>=2.8.2",
-    "uvicorn>=0.30.6",
-    "uuid-utils>=0.9.0",
-    "slowapi>=0.1.9",
-]
 readme = "README.md"
-requires-python = ">= 3.8"
-
-[tool.rye]
-managed = true
-virtual = true
-dev-dependencies = [
-    "pytest>=8.3.2",
-    "ruff>=0.6.2",
+requires-python = ">=3.12.5"
+dependencies = [
+    "fastapi>=0.115.4",
+    "polyfactory>=2.18.0",
+    "pydantic-settings>=2.6.1",
+    "pydantic>=2.9.2",
+    "python-dotenv>=1.0.1",
+    "slowapi>=0.1.9",
+    "supabase>=2.10.0",
+    "uuid-utils>=0.9.0",
+    "uvicorn>=0.32.0",
 ]
 
-[tool.ruff.lint]
-select = ["ALL"]
-ignore = ["D100","D212","TCH001","TCH002","TCH003"]
+[dependency-groups]
+dev = [
+    "anyio>=4.6.2.post1",
+    "faker>=30.8.2",
+    "httpx>=0.27.2",
+    "pytest-asyncio>=0.24.0",
+    "pytest-mock>=3.14.0",
+    "pytest>=8.3.3",
+    "ruff>=0.7.3",
+]
 
 [tool.ruff]
 line-length = 140
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D100","D212","S101","TCH001","TCH002","TCH003"]

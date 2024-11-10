@@ -1,18 +1,18 @@
 # ruff: noqa: D103
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, UTC
 from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.encoders import jsonable_encoder
-from supabase import AClient, PostgrestAPIResponse
 
 from src.api.category.schemas import CategoryCreate, CategoryResponseModel, CategoryUpdate
 from src.database import get_supabase_client
+from supabase import AClient, PostgrestAPIResponse
 from utils.exceptions import get_error_id
-from utils.logging import logger
+from utils.logger import logger
 
 router = APIRouter(
     prefix="/category",
@@ -84,7 +84,7 @@ async def create_category(
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
         category_dict = category.model_dump()
-        category_dict["created_at"] = datetime.now(timezone.utc)
+        category_dict["created_at"] = datetime.now(UTC)
         category_json_encoded = jsonable_encoder(category_dict)
         response = await client.table("category").insert(category_json_encoded).execute()
         logger.info(
@@ -117,7 +117,7 @@ async def update_category(
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
         category_dict = category.model_dump(exclude_unset=True)
-        category_dict["updated_at"] = datetime.now(timezone.utc)
+        category_dict["updated_at"] = datetime.now(UTC)
         category_json_encoded = jsonable_encoder(category_dict)
         response = await client.table("category").update(category_json_encoded).eq("id", cat_id).execute()
         logger.info(

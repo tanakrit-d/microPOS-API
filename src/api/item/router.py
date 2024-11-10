@@ -7,12 +7,12 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.encoders import jsonable_encoder
-from supabase import AClient, PostgrestAPIResponse
 
 from src.api.item.schemas import ItemCreate, ItemResponseModel, ItemUpdate
 from src.database import get_supabase_client
+from supabase import AClient, PostgrestAPIResponse
 from utils.exceptions import get_error_id
-from utils.logging import logger
+from utils.logger import logger
 
 router = APIRouter(
     prefix="/item",
