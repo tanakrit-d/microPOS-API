@@ -87,6 +87,7 @@ python start_seed.py --count 3 --env development
 - [x] async client
 - [x] environment configuration
 - [x] database seeding
+  - [ ] add other tables
 - [ ] authentication
 - [ ] ... other things I haven't thought of
 

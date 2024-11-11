@@ -1,7 +1,7 @@
 [project]
 name = "micropos-api"
 version = "0.1.0"
-description = "Add your description here"
+description = "Middleware layer for interfacing between the app and supabase."
 authors = [
     { name = "Dominic", email = "127579510+Tanakrit-D@users.noreply.github.com" }
 ]

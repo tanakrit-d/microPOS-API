@@ -23,4 +23,4 @@
 # │
 # ├── start_app.py              # FastAPI entrypoint
 # ├── start_config.py           # Configuration standalone entrypoint
-# ├── start_seed.py             # Seeder entrypoint
+# └── start_seed.py             # Seeder entrypoint
