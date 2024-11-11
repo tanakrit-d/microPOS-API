@@ -6,7 +6,7 @@ dist/
 wheels/
 *.egg-info
 
-# Ignore .env files and all variations
+# ignore .env files and all variations
 .env
 .env.*
 
@@ -18,6 +18,9 @@ wheels/
 
 # logs
 logs/
+
+# supabase
+supabase
 
 # pytest
 .pytest_cache
