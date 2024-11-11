@@ -1,7 +1,7 @@
 # ruff: noqa: D103
 from __future__ import annotations
 
-from datetime import datetime, timezone, UTC
+from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
@@ -15,19 +15,19 @@ from utils.exceptions import get_error_id
 from utils.logger import logger
 
 router = APIRouter(
-    prefix="/category",
-    tags=["Category"],
+    prefix="/storage",
+    tags=["Storage"],
 )
 
 
 @router.get(
-    "/{cat_id}",
-    summary="Get Category",
-    description="Retrieve a category by id.",
+    "/{bucket}/{object_id}",
+    summary="Get Object",
+    description="Retrieve an object by id.",
     response_model=CategoryResponseModel,
     status_code=status.HTTP_200_OK,
 )
-async def get_category(
+async def get_object(
     cat_id: UUID,
     client: Annotated[AClient, Depends(get_supabase_client)],
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
@@ -84,7 +84,7 @@ async def create_category(
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
         category_dict = category.model_dump()
-        category_dict["created_at"] = datetime.now(UTC)
+        category_dict["created_at"] = datetime.now(timezone.utc)
         category_json_encoded = jsonable_encoder(category_dict)
         response = await client.table("category").insert(category_json_encoded).execute()
         logger.info(
@@ -117,7 +117,7 @@ async def update_category(
 ) -> PostgrestAPIResponse[CategoryResponseModel]:
     try:
         category_dict = category.model_dump(exclude_unset=True)
-        category_dict["updated_at"] = datetime.now(UTC)
+        category_dict["updated_at"] = datetime.now(timezone.utc)
         category_json_encoded = jsonable_encoder(category_dict)
         response = await client.table("category").update(category_json_encoded).eq("id", cat_id).execute()
         logger.info(

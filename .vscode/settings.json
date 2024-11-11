@@ -1,17 +1,60 @@
 {
-    "cSpell.words": [
-        "dotenv",
-        "fastapi",
-        "jsonable",
-        "levelname",
-        "Postgrest",
-        "pydantic",
-        "pytest",
-        "supabase",
-        "Uvicorn",
-        "venv"
-    ],
-    "files.exclude": {
-        "**/__pycache__": true
-    }
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/src",
+    "${workspaceFolder}/utils"
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/src",
+    "${workspaceFolder}/utils"
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "cSpell.words": [
+    "anyio",
+    "dotenv",
+    "fastapi",
+    "httpx",
+    "jsonable",
+    "levelname",
+    "Massaman",
+    "Massamun",
+    "micropos",
+    "Postgrest",
+    "pydantic",
+    "pytest",
+    "slowapi",
+    "supabase",
+    "Uvicorn",
+    "venv"
+  ],
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": [
+    "bare-node-builtins",
+    "byonm",
+    "sloppy-imports",
+    "unsafe-proto",
+    "webgpu",
+    "broadcast-channel",
+    "worker-options",
+    "cron",
+    "kv",
+    "ffi",
+    "fs",
+    "http",
+    "net"
+  ],
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false
 }

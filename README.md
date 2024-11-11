@@ -15,10 +15,10 @@ Built with FastAPI, pydantic, supabase-py, and uvicorn.
 # Setup
 
 Clone the repo and `cd` to the directory  
-Install the dependencies and enable the `.venv` with [rye](https://rye.astral.sh/guide/installation/)  
+Install the dependencies and enable the `.venv` with [uv](https://docs.astral.sh/uv/getting-started/installation/)  
 
 ```bash
-rye sync
+uv sync
 ```
 
 # Configuration
@@ -27,14 +27,49 @@ Create a `.env` file and specify the following:
 
 ```ini
 API_URL = SUPABASE_URL
-KEY = API_KEY
+API_KEY = API_KEY
 VERSION = 0.1.0
+DEBUG = true
 ```
+
+For additional environments (such as `.env.local` or `.env.development`), ensure the necessary files are created.  
 
 # Start
 
 ```bash
-python run.py
+python start_app.py
+```
+
+# Docker (Not Ready)
+
+```bash
+docker build -t micropos-api
+docker run --name micropos-api -d micropos-api
+```
+
+# Local Development (Supabase CLI)
+
+If you wish to develop locally, set up [supabase-cli](https://supabase.com/docs/guides/local-development?queryGroups=package-manager&package-manager=pnpm)  
+You'll need to ensure you: `login`, `link`, and `pull`.  
+
+# Seeding the Database
+
+Provided your `.env` files are setup, you can seed your database with [start_seed.py](./start_seed.py).
+
+## Example
+
+```log
+python start_seed.py --count 3 --env development
+2024-11-11 16:57:23 - micropos-api - INFO - Config - Loading from: /Users/cool-guy/Repositories/microPOS-API/.env.development
+2024-11-11 16:57:23 - micropos-api - INFO - Config - Successfully loaded environment: development
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Starting seeding process ...
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Connecting to supabase instance ...
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Initializing seeder for environment: development
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Seeding 3 item(s) ...
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Created item: title=Spicy Salad; id=ab8ca6bb-3135-4360-8fc4-ab21cc57a727;
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Created item: title=Homemade Seafood; id=49f2d0fd-c22e-4e03-8627-39c80589a53f;
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Created item: title=Homemade Rice Bowl; id=30f1ef8c-de62-424b-af5c-ed824fee7d0e;
+2024-11-11 16:57:23 - micropos-api - INFO - Seeder - Successfully seeded 3 item(s) in environment: development
 ```
 
 # Task Implementation Status
@@ -42,6 +77,8 @@ python run.py
 ## Functionality
 
 - [x] async client
+- [x] environment configuration
+- [x] database seeding
 - [ ] authentication
 - [ ] ... other things I haven't thought of
 
