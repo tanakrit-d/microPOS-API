@@ -58,7 +58,7 @@ docker run --name micropos-api -d micropos-api
 # Local Development (Supabase CLI)
 
 If you wish to develop locally, set up [supabase-cli](https://supabase.com/docs/guides/local-development?queryGroups=package-manager&package-manager=pnpm)  
-You'll need to ensure you: `login`, `link`, and `pull`.  
+You'll need to ensure you: `login`, `link`, and `migration fetch`.  
 
 # Seeding the Database
 
