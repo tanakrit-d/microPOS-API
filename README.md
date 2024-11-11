@@ -23,21 +23,29 @@ uv sync
 
 # Configuration
 
-Create a `.env` file and specify the following:
+Create a `.env` file as follows:
+
+```ini
+ENVIRONMENT = ""
+```
+
+Then, create any additional environments (such as `.env.local` or `.env.development`) as required:
 
 ```ini
 API_URL = SUPABASE_URL
 API_KEY = API_KEY
 VERSION = 0.1.0
+ENVIRONMENT = development
 DEBUG = true
 ```
 
-For additional environments (such as `.env.local` or `.env.development`), ensure the necessary files are created.  
+We'll then use `.env` to pass through the environment to `FastAPI` and `Configuration`.  
+This is because `uvicorn` spawns a new process, which results in the app being unable to access any `Configuration` object initialised at runtime.  
 
 # Start
 
 ```bash
-python start_app.py
+python start_app.py --env development
 ```
 
 # Docker (Not Ready)
