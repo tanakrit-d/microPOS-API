@@ -1,6 +1,8 @@
-# src/app.py
 from __future__ import annotations
 
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -8,45 +10,47 @@ from slowapi.util import get_remote_address
 
 from src.api.category.router import router as category_routes
 from src.api.item.router import router as item_routes
-from src.config import get_settings
+from src.config import get_config, set_config
 from src.database import lifespan
 from utils.logger import logger
 
 
-def create_app(env: str | None = None) -> FastAPI:
+def create_app() -> FastAPI:
     """
     Initialize the FastAPI application.
 
-    Args:
-        env: Optional environment name to load specific configuration
+    This contains a workaround for passing through the
+    environment to the FastAPI app as uvicorn spawns a new process.
 
     Returns:
         Configured FastAPI application instance
 
     """
-    logger.info(f"Starting app in {env or 'default'} environment...")
+    load_dotenv()
+    set_config(os.getenv("ENVIRONMENT"))
+    config = get_config()
 
-    settings = get_settings(env)
+    logger.info(f"FastAPI - Initializing in {config.environment} environment")
 
     limiter = Limiter(key_func=get_remote_address)
 
     app = FastAPI(
         title="microPOS API",
         summary="Middleware layer for interfacing between the app and supabase.",
-        version=settings.VERSION,
         lifespan=lifespan,
-        debug=settings.DEBUG,
     )
 
+    app.state.env = os.getenv("ENVIRONMENT")
     app.state.limiter = limiter
-    app.state.settings = settings
+    app.state.settings = config
 
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-    logger.info("Adding routes...")
+    logger.info("FastAPI - Adding routes")
     app.include_router(category_routes)
     app.include_router(item_routes)
 
     return app
+
 
 app = create_app()

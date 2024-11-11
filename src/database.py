@@ -3,15 +3,14 @@ from __future__ import annotations
 import os
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import TYPE_CHECKING
 
+from dotenv import load_dotenv
+from fastapi import FastAPI
+
+from src.config import get_config, set_config
 from supabase import AClient, acreate_client
 from utils.exceptions import ClientInitializationError, get_error_id
 from utils.logger import logger
-
-if TYPE_CHECKING:
-    from fastapi import FastAPI
-
 
 supabase_client: AClient | None = None
 
@@ -25,15 +24,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:  # noqa: ARG001
     When the application shuts down, it logs the user out of Supabase.
 
     Args:
-    ----
         app (FastAPI): The FastAPI application instance.
 
     Yields:
-    ------
         None: Yields control during the lifespan of the application.
 
     """
-    logger.info("Adding session ...")
+    logger.info("Client - Adding session")
     global supabase_client  # noqa: PLW0603
     supabase_client = await create_supabase()
     yield
@@ -44,16 +41,22 @@ async def create_supabase() -> AClient:
     """
     Create and return an asynchronous Supabase client.
 
-    The client is created using API credentials retrieved from environment variables.
+    This contains a workaround for passing through the
+    environment to the Configuration class.
 
-    Returns
-    -------
+    Returns:
         AClient: An instance of the asynchronous Supabase client.
 
     """
+    logger.info("Client - Connecting to supabase instance")
+
+    load_dotenv()
+    set_config(os.getenv("ENVIRONMENT"))
+    config = get_config()
+
     return await acreate_client(
-        os.environ["API_URL"],
-        os.environ["KEY"],
+        config.api_url,
+        config.api_key,
     )
 
 
@@ -61,15 +64,12 @@ def get_supabase_client() -> AClient:
     """
     Retrieve the initialized Supabase client.
 
-    If the client has not been initialized, an error is logged, and a
-    ClientInitializationError is raised with the error ID for tracking.
+    If the client has not been initialized, logs an error and raises a ClientInitializationError.
 
-    Returns
-    -------
+    Returns:
         AClient: The initialized Supabase client.
 
-    Raises
-    ------
+    Raises:
         ClientInitializationError: If the Supabase client is not initialized.
 
     """
@@ -80,4 +80,5 @@ def get_supabase_client() -> AClient:
         raise ClientInitializationError(
             msg,
         )
+    logger.info("Client - Session started")
     return supabase_client

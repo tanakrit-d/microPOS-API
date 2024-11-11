@@ -2,16 +2,25 @@
 # │
 # ├── src/
 # │   ├── __init__.py
-# │   ├── app.py  # FastAPI main application
-# │   ├── database.py
-# │   ├── core/
-# │   │   ├── __init__.py
-# │   │   ├── config.py
-# │   │   └── database.py
-# │   │
+# │   ├── app.py                # FastAPI application
+# │   ├── config.py             # Configuration loader (.env)
+# │   ├── database.py           # Supabase client
 # │   ├── api/
 # │   │   ├── __init__.py
-# │   │   └── item/
-# │   │       └── __init__.py
-# │   │       └── router.py
-# │   │       └── schemas.py
+# │   │   └── category/         # Category endpoints/routes
+# │   │   │   └── __init__.py
+# │   │   │   └── router.py
+# │   │   │   └── schemas.py
+# │   │   └── item/             # Item endpoints/routes
+# │   │   │   └── __init__.py
+# │   │   │   └── router.py
+# │   │   │   └── schemas.py
+# │   │   └── storage/          # Storage endpoints/routes
+# │   │   │   └── __init__.py
+# │   │   │   └── router.py
+# │   │   │   └── schemas.py
+# ├── utils/
+# │   ├── __init__.py
+# │   ├── exceptions.py         # Custom exceptions and error_id gen
+# │   ├── logger.py             # Logger instance available throughout the app
+# │   ├── seeder.py             # Database seeder

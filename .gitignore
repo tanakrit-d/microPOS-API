@@ -6,8 +6,9 @@ dist/
 wheels/
 *.egg-info
 
-# env
-.env*
+# Ignore .env files and all variations
+.env
+.env.*
 
 # venv
 .venv
@@ -17,6 +18,9 @@ wheels/
 
 # logs
 logs/
+
+# pytest
+.pytest_cache
 
 # ruff
 .ruff_cache
